@@ -1,0 +1,11 @@
+{
+  "name": "Remix: Copy of Medicheck-AI-AI-Powered-Medication-Safety-System",
+  "description": "Imported from GitHub: ajm1230/Medicheck-AI-AI-Powered-Medication-Safety-System",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

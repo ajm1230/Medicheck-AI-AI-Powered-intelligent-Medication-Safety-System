@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediCheck AI — UI Preview</title>
+  <style>
+    :root{
+      --blue:#1068f5;
+      --blue-2:#0057e8;
+      --soft-blue:#eaf5ff;
+      --ink:#111827;
+      --muted:#6b7280;
+      --line:#edf2f7;
+      --card:#ffffff;
+      --green:#55c56b;
+      --green-bg:#eafff0;
+      --orange:#ffb340;
+      --orange-bg:#fff7e6;
+      --shadow: 0 34px 80px rgba(45, 96, 142, .18);
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color:var(--ink);
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 11% 83%, rgba(89,168,255,.20) 0 18%, transparent 35%),
+        radial-gradient(circle at 90% 11%, rgba(197,228,255,.78) 0 18%, transparent 38%),
+        linear-gradient(180deg,#f8fcff 0%,#eef8ff 43%,#e7f4ff 100%);
+      overflow-x:hidden;
+    }
+
+    .page-shell{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:44px 36px;
+      position:relative;
+    }
+
+    .page-shell::before,
+    .page-shell::after{
+      content:"";
+      position:absolute;
+      inset:auto;
+      pointer-events:none;
+      opacity:.52;
+      filter:blur(.1px);
+    }
+
+    .page-shell::before{
+      left:-80px;
+      bottom:30px;
+      width:330px;
+      height:330px;
+      border-radius:48% 52% 44% 56%;
+      background:linear-gradient(145deg, rgba(102,178,255,.20), rgba(255,255,255,.0));
+      border:1px solid rgba(135,197,255,.23);
+      transform:rotate(18deg);
+    }
+
+    .page-shell::after{
+      right:-120px;
+      bottom:-70px;
+      width:470px;
+      height:470px;
+      border-radius:46% 54% 50% 50%;
+      background:linear-gradient(135deg, rgba(128,194,255,.21), rgba(255,255,255,0));
+      border:1px solid rgba(126,191,255,.20);
+      transform:rotate(-28deg);
+    }
+
+    .showcase{
+      width:min(100%, 1360px);
+      display:grid;
+      grid-template-columns:repeat(3, minmax(300px, 1fr));
+      gap:42px;
+      align-items:center;
+      justify-items:center;
+      position:relative;
+      z-index:1;
+    }
+
+    .phone{
+      width:390px;
+      max-width:100%;
+      height:780px;
+      border-radius:34px;
+      background:rgba(255,255,255,.96);
+      box-shadow:var(--shadow);
+      border:1px solid rgba(221,235,248,.9);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .phone::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:34px;
+      pointer-events:none;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.72);
+    }
+
+    .screen{
+      height:100%;
+      padding:24px 26px 22px;
+      display:flex;
+      flex-direction:column;
+      position:relative;
+    }
+
+    .status{
+      height:22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:-.02em;
+      color:#111827;
+      margin-bottom:14px;
+    }
+
+    .signals{
+      display:flex;
+      align-items:center;
+      gap:5px;
+    }
+
+    .bars{display:flex;align-items:flex-end;gap:2px;height:11px}
+    .bars i{display:block;width:3px;border-radius:5px;background:#111827}
+    .bars i:nth-child(1){height:5px}.bars i:nth-child(2){height:7px}.bars i:nth-child(3){height:9px}.bars i:nth-child(4){height:11px}
+    .wifi{width:13px;height:10px;border:3px solid #111827;border-left-color:transparent;border-bottom-color:transparent;border-right-color:transparent;border-radius:50%;transform:translateY(4px)}
+    .battery{width:18px;height:9px;border:2px solid #111827;border-radius:3px;position:relative}
+    .battery::after{content:"";position:absolute;right:-4px;top:2px;width:2px;height:3px;background:#111827;border-radius:2px}.battery::before{content:"";position:absolute;inset:1px 3px 1px 1px;background:#111827;border-radius:1px}
+
+    .top-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    .hello h1{font-size:25px;line-height:1.08;margin:0 0 6px;font-weight:850;letter-spacing:-.055em}
+    .hello p{font-size:13px;color:#8a96a8;margin:0;font-weight:600;letter-spacing:-.015em}
+    .icon-btn{width:38px;height:38px;border:none;border-radius:14px;background:#fff;display:grid;place-items:center;color:#182033;box-shadow:0 8px 24px rgba(42,79,114,.08);border:1px solid #edf2f7}
+    .icon{width:20px;height:20px;stroke:currentColor;stroke-width:2.1;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+    .hero-card{
+      height:137px;
+      border-radius:14px;
+      background:
+        radial-gradient(circle at 82% 45%, rgba(255,255,255,.20) 0 17%, transparent 18%),
+        linear-gradient(135deg,#126ef6 0%,#0060ed 72%);
+      padding:22px 20px;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      overflow:hidden;
+      box-shadow:0 18px 36px rgba(0,92,240,.23);
+      margin-bottom:22px;
+      position:relative;
+    }
+    .hero-card::after{content:"+";position:absolute;left:245px;top:51px;font-size:18px;font-weight:500;color:rgba(255,255,255,.42)}
+    .hero-copy h2{font-size:17px;line-height:1.35;margin:0 0 10px;font-weight:820;letter-spacing:-.03em;width:165px}
+    .hero-copy p{font-size:10.5px;line-height:1.5;margin:0;color:rgba(255,255,255,.73);font-weight:600;width:175px}
+    .shield{width:78px;height:88px;opacity:.92;filter:drop-shadow(0 10px 20px rgba(0,0,0,.12))}
+
+    .section-head{display:flex;align-items:center;justify-content:space-between;margin:0 0 11px}
+    .section-head h3{font-size:13px;margin:0;font-weight:830;letter-spacing:-.025em}
+    .section-head a{font-size:10px;text-decoration:none;color:#1973f8;font-weight:750}
+
+    .actions-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:20px}
+    .action-card{
+      min-height:107px;
+      border-radius:13px;
+      background:#fff;
+      border:1px solid var(--line);
+      box-shadow:0 10px 26px rgba(69,101,135,.06);
+      padding:18px 14px 13px;
+      position:relative;
+      overflow:hidden;
+    }
+    .action-card::after{content:"";position:absolute;right:-18px;bottom:-22px;width:68px;height:68px;border-radius:50%;background:#f4f9ff}
+    .action-icon{
+      width:30px;height:30px;border-radius:10px;background:#eef6ff;color:#1673f7;display:grid;place-items:center;margin-bottom:14px;position:relative;z-index:1
+    }
+    .action-card h4{font-size:12.6px;margin:0 0 7px;font-weight:830;letter-spacing:-.02em;position:relative;z-index:1}
+    .action-card p{font-size:9.5px;line-height:1.35;margin:0;color:#8b96a8;font-weight:600;position:relative;z-index:1}
+
+    .recent-list{display:flex;flex-direction:column;gap:9px;margin-bottom:14px}
+    .medicine-row{
+      display:grid;
+      grid-template-columns:38px 1fr auto 12px;
+      gap:11px;
+      align-items:center;
+      min-height:57px;
+      padding:10px;
+      border-radius:13px;
+      background:#fff;
+      border:1px solid var(--line);
+      box-shadow:0 8px 22px rgba(69,101,135,.05);
+    }
+    .mini-box{width:36px;height:38px;border-radius:5px;background:linear-gradient(160deg,#f7fafc,#e7edf5);border:1px solid #dce7f2;position:relative;box-shadow:inset -9px 0 0 rgba(21,105,239,.08)}
+    .mini-box::before{content:"";position:absolute;left:4px;right:4px;bottom:6px;height:4px;background:#cfd8e3;border-radius:10px}.mini-box::after{content:"";position:absolute;left:5px;top:8px;width:17px;height:3px;background:#9aa7b8;border-radius:10px}
+    .med-text b{display:block;font-size:11.5px;margin-bottom:4px;letter-spacing:-.02em}.med-text span{display:block;color:#8a96a8;font-size:9.3px;font-weight:600}.pill{font-size:9px;font-weight:800;padding:7px 10px;border-radius:99px}.pill.safe{color:#2fa74d;background:var(--green-bg)}.pill.caution{color:#b98511;background:var(--orange-bg)}
+    .chev{color:#b9c2cf;font-size:21px;line-height:1}
+
+    .bottom-nav{
+      margin-top:auto;
+      height:59px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      border-top:1px solid #f2f5f9;
+      padding-top:10px;
+    }
+    .nav-item{display:flex;flex-direction:column;align-items:center;gap:5px;color:#b7c0cb;font-size:9.5px;font-weight:800;text-decoration:none}.nav-item svg{width:18px;height:18px}.nav-item.active{color:#086cf3}
+
+    .simple-header{display:grid;grid-template-columns:38px 1fr 38px;align-items:center;text-align:center;margin-bottom:16px}.simple-header h2{font-size:14px;margin:0;font-weight:850;letter-spacing:-.03em}.back{justify-self:start;width:32px;height:32px;background:transparent;border:none;color:#111827;display:grid;place-items:center}
+
+    .camera-view{
+      height:430px;
+      border-radius:15px;
+      overflow:hidden;
+      background:linear-gradient(180deg,rgba(238,236,226,.45),rgba(176,142,93,.22)), radial-gradient(circle at 60% 18%,rgba(22,33,37,.5),transparent 19%), linear-gradient(120deg,#d5d1ca 0%,#aeb8ab 42%,#caa36d 100%);
+      position:relative;
+      box-shadow:0 15px 32px rgba(62,82,102,.12);
+      margin-bottom:19px;
+    }
+    .camera-view::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,26,32,.15),rgba(255,255,255,.08),rgba(22,26,34,.08));backdrop-filter:blur(2.2px)}
+    .medicine-pack{
+      width:245px;height:174px;background:#f5f1e8;border-radius:6px;position:absolute;left:68px;top:139px;box-shadow:0 18px 24px rgba(0,0,0,.16);z-index:2;overflow:hidden;border:1px solid rgba(87,81,72,.28)}
+    .medicine-pack .curve{position:absolute;right:-22px;bottom:-16px;width:116px;height:150px;background:linear-gradient(145deg,#eaf2f7 0 42%, #2780cf 43% 72%, #075db7 73%);border-radius:90% 0 0 0;transform:rotate(8deg)}
+    .medicine-pack h3{font-size:21px;line-height:1.08;margin:28px 0 0 30px;letter-spacing:-.04em;position:relative;z-index:1}.medicine-pack h3 span{font-size:19px;font-weight:710}.dose{position:absolute;left:31px;top:82px;background:#045cc5;color:white;font-size:15px;font-weight:850;padding:4px 12px;border-radius:3px;z-index:2}.pack-copy{position:absolute;left:31px;top:118px;font-size:8.5px;color:#4a5565;font-weight:700;line-height:1.55;z-index:2}.pack-size{position:absolute;left:31px;bottom:20px;font-size:8px;color:#6b7280;font-weight:700;z-index:2}
+    .scan-corners{position:absolute;inset:99px 31px 94px;z-index:3;border-radius:14px}.corner{position:absolute;width:54px;height:54px;border-color:rgba(255,255,255,.96);border-style:solid}.tl{top:0;left:0;border-width:4px 0 0 4px;border-radius:14px 0 0 0}.tr{top:0;right:0;border-width:4px 4px 0 0;border-radius:0 14px 0 0}.bl{bottom:0;left:0;border-width:0 0 4px 4px;border-radius:0 0 0 14px}.br{bottom:0;right:0;border-width:0 4px 4px 0;border-radius:0 0 14px 0}
+    .ai-chip{position:absolute;left:92px;bottom:27px;z-index:5;background:rgba(255,255,255,.93);padding:9px 20px;border-radius:999px;font-size:10px;color:#717d8f;font-weight:850;box-shadow:0 10px 24px rgba(0,0,0,.13)}
+    .scan-controls{height:82px;display:grid;grid-template-columns:1fr 98px 1fr;align-items:center;margin-bottom:14px}.small-control{width:46px;height:46px;border-radius:15px;border:none;background:#fff;color:#4f6175;box-shadow:0 9px 22px rgba(62,82,102,.07);justify-self:center;display:grid;place-items:center;border:1px solid #edf3f9}.camera-main{width:72px;height:72px;border-radius:50%;background:linear-gradient(145deg,#1d7afa,#045fe7);border:8px solid #e9f3ff;box-shadow:0 13px 32px rgba(16,104,245,.25);display:grid;place-items:center;color:#fff;justify-self:center}.tip-box{display:flex;align-items:center;gap:16px;background:#fbfdff;border:1px solid #eff4fa;border-radius:16px;padding:14px 16px;margin-top:auto;box-shadow:0 8px 22px rgba(75,107,136,.05)}.tip-box h4{font-size:12px;margin:0 0 5px;font-weight:850}.tip-box p{font-size:9.5px;color:#8a96a8;font-weight:650;line-height:1.35;margin:0}.voice-dot{margin-left:auto;width:36px;height:36px;border-radius:50%;background:#eef7ff;color:#0f74f7;display:grid;place-items:center;box-shadow:0 0 0 8px rgba(232,245,255,.55)}
+
+    .safe-banner{
+      height:132px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#eaffee,#f7fff9);
+      padding:23px 20px;
+      display:grid;
+      grid-template-columns:72px 1fr 76px;
+      gap:14px;
+      align-items:center;
+      box-shadow:0 12px 34px rgba(66,190,97,.12);
+      border:1px solid rgba(204,244,213,.9);
+      margin-bottom:18px;
+    }
+    .big-shield{width:62px;height:72px}.safe-copy small{font-size:10px;color:#6a7b74;font-weight:800}.safe-copy h1{font-size:24px;color:#36b451;letter-spacing:-.05em;margin:4px 0 5px;line-height:1}.safe-copy p{font-size:10px;color:#50615a;line-height:1.35;margin:0;font-weight:700}.score{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(#55c56b 0 82%,#e1f4e5 82% 100%)}.score::before{content:"";position:absolute;inset:6px;background:#f2fff5;border-radius:50%}.score b{position:relative;font-size:20px;color:#36b451;letter-spacing:-.03em}.score span{position:relative;font-size:8px;color:#7c8b84;margin-top:-11px;font-weight:800}
+    .report-list{display:flex;flex-direction:column;gap:13px;margin-bottom:20px}.report-item{min-height:74px;background:#fff;border:1px solid #eff4fa;border-radius:14px;box-shadow:0 10px 24px rgba(69,101,135,.055);display:grid;grid-template-columns:43px 1fr 24px;gap:13px;align-items:center;padding:14px}.report-icon{width:36px;height:36px;border-radius:12px;background:#f0f7ff;color:#116ef4;display:grid;place-items:center}.report-text h4{font-size:12.8px;margin:0 0 5px;font-weight:850;letter-spacing:-.025em}.report-text p{font-size:9.3px;line-height:1.35;color:#8a96a8;margin:0;font-weight:650}.check-circle{width:22px;height:22px;border-radius:50%;border:2px solid #c5f0d2;color:#47bd63;display:grid;place-items:center;font-size:12px;font-weight:900;background:#f7fff9}.recommend{background:#fff;border-radius:15px;padding:17px 16px 16px;border:1px solid #edf3f9;box-shadow:0 10px 24px rgba(69,101,135,.05);min-height:102px;position:relative;overflow:hidden;margin-bottom:17px}.recommend::after{content:"";position:absolute;right:15px;bottom:-18px;width:82px;height:82px;border-radius:25px;background:linear-gradient(140deg,rgba(21,112,245,.08),rgba(21,112,245,.0));transform:rotate(-28deg)}.recommend-title{display:flex;align-items:center;gap:8px;color:#126ef4;font-size:12.5px;font-weight:900;margin-bottom:13px}.recommend p{font-size:9.6px;line-height:1.48;margin:0;color:#6d7888;font-weight:690;width:220px}.report-actions{margin-top:auto;display:grid;grid-template-columns:1fr 1.42fr;gap:12px}.secondary,.primary{height:48px;border-radius:13px;border:none;font-size:12px;font-weight:850;letter-spacing:-.01em}.secondary{background:#fff;border:1px solid #edf2f7;color:#4b5563;display:flex;align-items:center;justify-content:center;gap:7px}.primary{background:linear-gradient(135deg,#1475f8,#0261ec);color:#fff;box-shadow:0 12px 24px rgba(14,103,240,.20)}
+
+    @media (max-width: 1250px){
+      .showcase{grid-template-columns:repeat(3, 360px);gap:24px;overflow-x:auto;justify-content:flex-start;padding:12px 2px 28px;scroll-snap-type:x mandatory}.phone{width:360px;height:740px;scroll-snap-align:center}.screen{padding:22px 23px 20px}.camera-view{height:402px}.medicine-pack{left:57px}.safe-banner{grid-template-columns:64px 1fr 66px}.recommend p{width:200px}
+    }
+
+    @media (max-width: 760px){
+      .page-shell{align-items:flex-start;justify-content:flex-start;padding:28px 18px}.showcase{grid-template-columns:1fr;overflow:visible;gap:24px}.phone{width:100%;max-width:390px;margin:auto;height:780px}
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <section class="showcase" aria-label="MediCheck AI mobile screens preview">
+      <article class="phone">
+        <div class="screen">
+          <div class="status"><span>9:41</span><div class="signals"><span class="bars"><i></i><i></i><i></i><i></i></span><span class="wifi"></span><span class="battery"></span></div></div>
+
+          <div class="top-row">
+            <div class="hello">
+              <h1>Hello, Alex</h1>
+              <p>Your AI Medicine Verifier</p>
+            </div>
+            <button class="icon-btn" aria-label="Notifications">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+            </button>
+          </div>
+
+          <div class="hero-card">
+            <div class="hero-copy">
+              <h2>Verify. Understand. Stay Safe.</h2>
+              <p>AI-powered checks to help you take medicine with confidence.</p>
+            </div>
+            <svg class="shield" viewBox="0 0 90 100" aria-hidden="true"><path d="M45 5 78 18v25c0 25-15 39-33 49C27 82 12 68 12 43V18L45 5Z" fill="rgba(255,255,255,.16)" stroke="rgba(255,255,255,.86)" stroke-width="6"/><path d="M45 30v32M29 46h32" stroke="#fff" stroke-width="10" stroke-linecap="round"/></svg>
+          </div>
+
+          <div class="section-head"><h3>Quick Actions</h3></div>
+          <div class="actions-grid">
+            <div class="action-card"><div class="action-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="3"/></svg></div><h4>Scan Medicine</h4><p>Identify and validate safety instantly.</p></div>
+            <div class="action-card"><div class="action-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M8 3h8l3 3v15H5V3z"/><path d="M8 12h8M8 16h6"/></svg></div><h4>Check Prescription</h4><p>Match medicine with prescription.</p></div>
+            <div class="action-card"><div class="action-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></div><h4>Check Allergies</h4><p>Scan for ingredients you must avoid.</p></div>
+            <div class="action-card"><div class="action-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 2v20M7 7h10M7 17h10"/><circle cx="12" cy="12" r="3"/></svg></div><h4>Voice Guidance</h4><p>Get medicine safety explained simply.</p></div>
+          </div>
+
+          <div class="section-head"><h3>Recent Medications</h3><a href="#">View all</a></div>
+          <div class="recent-list">
+            <div class="medicine-row"><div class="mini-box"></div><div class="med-text"><b>Paracetamol 650 mg</b><span>Scanned today, 09:45 AM</span></div><span class="pill safe">Safe</span><span class="chev">›</span></div>
+            <div class="medicine-row"><div class="mini-box"></div><div class="med-text"><b>Amoxicillin 500 mg</b><span>Scanned yesterday, 08:15 PM</span></div><span class="pill caution">Caution</span><span class="chev">›</span></div>
+          </div>
+
+          <nav class="bottom-nav" aria-label="App navigation">
+            <a class="nav-item active" href="#"><svg class="icon" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8"/><path d="M5 10v10h14V10"/></svg><span>Home</span></a>
+            <a class="nav-item" href="#"><svg class="icon" viewBox="0 0 24 24"><path d="M8 3h8l3 3v15H5V3z"/><path d="M8 12h8M8 16h6"/></svg><span>History</span></a>
+            <a class="nav-item" href="#"><svg class="icon" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/></svg><span>Alerts</span></a>
+            <a class="nav-item" href="#"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.6-4 14.4-4 16 0"/></svg><span>Profile</span></a>
+          </nav>
+        </div>
+      </article>
+
+      <article class="phone">
+        <div class="screen">
+          <div class="status"><span>9:41</span><div class="signals"><span class="bars"><i></i><i></i><i></i><i></i></span><span class="wifi"></span><span class="battery"></span></div></div>
+          <div class="simple-header"><button class="back" aria-label="Back"><svg class="icon" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><h2>Scan Medicine</h2><span></span></div>
+
+          <div class="camera-view">
+            <div class="medicine-pack">
+              <h3>Paracetamol<br><span>Tablets IP 650 mg</span></h3>
+              <div class="dose">650 mg</div>
+              <div class="pack-copy">• Fever reducer<br>• Pain reliever</div>
+              <div class="pack-size">10 × 15 tablets</div>
+              <div class="curve"></div>
+            </div>
+            <div class="scan-corners"><span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span></div>
+            <div class="ai-chip">AI-powered label scan</div>
+          </div>
+
+          <div class="scan-controls">
+            <button class="small-control" aria-label="Upload image"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="m4 16 5-5 4 4 2-2 5 5"/><circle cx="8" cy="9" r="1"/></svg></button>
+            <button class="camera-main" aria-label="Scan"><svg class="icon" viewBox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg></button>
+            <button class="small-control" aria-label="Flash"><svg class="icon" viewBox="0 0 24 24"><path d="m13 2-7 12h6l-1 8 7-12h-6z"/></svg></button>
+          </div>
+
+          <div class="tip-box">
+            <div><h4>Tip for test mode</h4><p>Scan label + capture photo together for better AI verification.</p></div>
+            <div class="voice-dot"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v10"/><path d="M8 9v3a4 4 0 0 0 8 0V9"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="phone">
+        <div class="screen">
+          <div class="status"><span>9:41</span><div class="signals"><span class="bars"><i></i><i></i><i></i><i></i></span><span class="wifi"></span><span class="battery"></span></div></div>
+          <div class="simple-header"><button class="back" aria-label="Back"><svg class="icon" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><h2>Safety Report</h2><span></span></div>
+
+          <div class="safe-banner">
+            <svg class="big-shield" viewBox="0 0 90 100" aria-hidden="true"><path d="M45 5 78 18v25c0 25-15 39-33 49C27 82 12 68 12 43V18L45 5Z" fill="#58c970"/><path d="m29 48 10 10 23-25" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="safe-copy"><small>Overall Safety</small><h1>Safe</h1><p>Low Risk<br>No dangerous interaction detected.</p></div>
+            <div class="score"><b>18</b><span>/20</span></div>
+          </div>
+
+          <div class="report-list">
+            <div class="report-item"><div class="report-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4z"/><path d="M14 14h6v6h-6z"/></svg></div><div class="report-text"><h4>OCR Recognized</h4><p>Paracetamol 650 mg tablet extracted from image.</p></div><div class="check-circle">✓</div></div>
+            <div class="report-item"><div class="report-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M8 3h8l3 3v15H5V3z"/><path d="M8 12h8M8 16h6"/></svg></div><div class="report-text"><h4>Prescription Match</h4><p>Medicine and prescription dosage look compatible.</p></div><div class="check-circle">✓</div></div>
+            <div class="report-item"><div class="report-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></div><div class="report-text"><h4>Allergy Check</h4><p>No known allergy conflict found in test profile.</p></div><div class="check-circle">✓</div></div>
+            <div class="report-item"><div class="report-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg></div><div class="report-text"><h4>Intake Note Check</h4><p>Take with water and follow doctor dosage.</p></div><div class="check-circle">✓</div></div>
+          </div>
+
+          <div class="recommend">
+            <div class="recommend-title"><span>✦</span> AI Recommendation</div>
+            <p>This medicine appears safe based on OCR, prescription match, allergy profile and interaction scan. Follow prescribed dosage.</p>
+          </div>
+
+          <div class="report-actions"><button class="secondary"><svg class="icon" viewBox="0 0 24 24"><path d="M4 12v7h16v-7"/><path d="M12 3v13"/><path d="m7 8 5-5 5 5"/></svg>Share Report</button><button class="primary">Save to History</button></div>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

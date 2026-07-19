@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560">
+  <rect width="900" height="560" fill="#eef7ff"/>
+  <rect x="80" y="80" width="740" height="400" rx="38" fill="#fff" stroke="#7dbdff" stroke-width="6"/>
+  <rect x="80" y="80" width="740" height="112" rx="38" fill="#0a7bff"/>
+  <text x="130" y="150" font-family="Arial" font-size="55" font-weight="700" fill="#fff">DOLO 650</text>
+  <text x="130" y="250" font-family="Arial" font-size="38" font-weight="700" fill="#071326">Paracetamol Tablets IP 650 mg</text>
+  <text x="130" y="315" font-family="Arial" font-size="30" fill="#314258">For fever and body pain</text>
+  <text x="130" y="375" font-family="Arial" font-size="28" fill="#314258">Batch: DL650A • Exp: 08/2027</text>
+  <text x="130" y="425" font-family="Arial" font-size="26" fill="#314258">Manufacturer: Micro Labs</text>
+  <rect x="650" y="260" width="90" height="90" fill="#071326"/><rect x="663" y="273" width="22" height="22" fill="#fff"/><rect x="705" y="273" width="22" height="22" fill="#fff"/><rect x="663" y="316" width="22" height="22" fill="#fff"/><rect x="705" y="316" width="22" height="22" fill="#fff"/>
+</svg>
