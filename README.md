@@ -23,7 +23,7 @@ To deliver a caring, accessible, and natural user experience—especially for el
 
 ---
 
-## 💻 Integration Code Snippets
+## 💻 Integration Code Snippets (Gnani.ai )
 
 Here is exactly how our application interacts with the **Gnani.ai Vachana Voice Engine** across our full-stack architecture:
 
